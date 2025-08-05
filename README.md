@@ -1,36 +1,95 @@
 This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
 
-## Getting Started
+# MHS Spor Toto Tahmin Uygulaması
 
-First, run the development server:
+Türkiye Süper Ligi'ndeki haftalık maç sonuçlarını, "mhs" adlı adminin belirlediği bir arkadaş grubu içinde tahmin etmeye yönelik basit, eğlenceli ve hızlı bir web uygulaması.
+
+## Özellikler
+
+- Admin paneli ile haftalık maç programını API'den çekme
+- Kullanıcılar için şifresiz, benzersiz link ile erişim
+- Maç tahminleri yapma (1: Ev Sahibi Kazanır, 0: Beraberlik, 2: Deplasman Kazanır)
+- Sonuçlar ve sıralama tablosu
+- Kullanıcı yönetimi
+
+## Teknolojiler
+
+- **Frontend**: Next.js, TypeScript, TailwindCSS
+- **Backend & Veritabanı**: Supabase
+- **Deployment**: Vercel
+- **API**: api-football
+
+## Kurulum
+
+1. Repoyu klonlayın:
+
+```bash
+git clone <repo-url>
+cd mhs-spor-toto
+```
+
+2. Bağımlılıkları yükleyin:
+
+```bash
+npm install
+```
+
+3. `.env.local` dosyasını düzenleyin:
+
+```
+# Supabase Credentials
+NEXT_PUBLIC_SUPABASE_URL=your-supabase-url
+NEXT_PUBLIC_SUPABASE_ANON_KEY=your-supabase-anon-key
+
+# API Football
+API_FOOTBALL_KEY=your-api-football-key
+
+# Admin Key (mhs için)
+NEXT_PUBLIC_ADMIN_KEY=your-admin-key
+```
+
+4. Supabase'de aşağıdaki tabloları oluşturun:
+
+- **users**: id (PK), name (Text), unique_access_key (Text, Unique)
+- **weeks**: id (PK), week_number (Integer), year (Integer), status (Text)
+- **matches**: id (PK), week_id (FK to weeks.id), home_team_name (Text), away_team_name (Text), match_date (Timestamp), official_result (Integer, Nullable)
+- **predictions**: id (PK), match_id (FK to matches.id), user_id (FK to users.id), predicted_result (Integer), created_at (Timestamp)
+
+5. Geliştirme sunucusunu başlatın:
 
 ```bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+6. [http://localhost:3000](http://localhost:3000) adresini tarayıcınızda açın.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Kullanım
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+### Admin Olarak
 
-## Learn More
+1. Ana sayfadan "Admin Girişi" butonuna tıklayın
+2. `.env.local` dosyasında belirlediğiniz admin anahtarını girin
+3. Admin panelinde:
+   - Haftalık maç programını API'den çekin
+   - Maç sonuçlarını girin
+   - Kullanıcı yönetimi sayfasından kullanıcı ekleyin ve erişim linklerini kopyalayın
 
-To learn more about Next.js, take a look at the following resources:
+### Kullanıcı Olarak
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+1. Admin tarafından size verilen benzersiz linke tıklayın
+2. Maçlar için tahminlerinizi yapın (1, 0, 2)
+3. "Tahminleri Kaydet" butonuna tıklayın
+4. Sonuçlar açıklandıktan sonra "Sonuçları Görüntüle" sayfasından sıralamayı ve diğer kullanıcıların tahminlerini görebilirsiniz
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## Deployment
 
-## Deploy on Vercel
+Uygulamayı Vercel'e deploy etmek için:
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+```bash
+npm run build
+vercel deploy
+```
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## Lisans
+
+Bu proje MIT lisansı altında lisanslanmıştır.
