@@ -78,9 +78,9 @@ export default function UsersPage() {
       } else {
         throw new Error('Kullanıcı güncellenemedi');
       }
-    } catch (err) {
-      console.error('Kullanıcı güncellenirken hata oluştu:', err);
-      setError('Kullanıcı güncellenirken bir hata oluştu. Erişim anahtarı benzersiz olmalıdır.');
+    } catch (error) {
+      console.error('Kullanıcı güncellenirken hata oluştu:', error);
+      alert('Kullanıcı güncellenirken bir hata oluştu.');
     } finally {
       setSubmitting(false);
     }

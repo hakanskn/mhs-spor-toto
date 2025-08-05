@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
-import { FaCheck, FaTimes, FaExclamationTriangle, FaInfoCircle } from 'react-icons/fa';
+import { FaCalendar, FaUsers, FaFutbol, FaClock, FaTrophy, FaCheck, FaTimes, FaInfoCircle } from 'react-icons/fa';
 import { Match, Week } from '@/lib/supabase';
 import { weekService, matchService } from '@/lib/supabase-service';
 import { userService, predictionService, userScoreService } from '@/lib/supabase-service';

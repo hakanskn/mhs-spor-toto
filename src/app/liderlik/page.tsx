@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
-import { UserScore } from '@/lib/supabase';
+import { FaTrophy, FaHome, FaCalendar, FaClock, FaCheck, FaTimes, FaUsers, FaFutbol } from 'react-icons/fa';
 import { userScoreService, userService } from '@/lib/supabase-service';
 
 type OverallUserScore = {

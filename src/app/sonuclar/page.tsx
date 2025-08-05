@@ -2,9 +2,9 @@
 
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
-import { FaTrophy, FaHome, FaCalendar, FaClock, FaCheck, FaTimes, FaUsers, FaFutbol, FaEye, FaEyeSlash, FaStar, FaMedal } from 'react-icons/fa';
+import { FaTrophy, FaHome, FaCalendar, FaClock, FaUsers, FaFutbol, FaTimes, FaStar } from 'react-icons/fa';
 import { Week, Match, UserScore } from '@/lib/supabase';
-import { weekService, matchService, predictionService, userScoreService, userService } from '@/lib/supabase-service';
+import { weekService, matchService, userScoreService, userService } from '@/lib/supabase-service';
 
 type UserScoreWithName = UserScore & {
   user_name: string;
@@ -117,9 +117,9 @@ export default function ResultsPage() {
 
   const getRankIcon = (rank: number) => {
     switch (rank) {
-      case 1: return <FaMedal className="text-yellow-500" />;
-      case 2: return <FaMedal className="text-gray-400" />;
-      case 3: return <FaMedal className="text-orange-600" />;
+      case 1: return <FaTrophy className="text-yellow-500" />;
+      case 2: return <FaTrophy className="text-gray-400" />;
+      case 3: return <FaTrophy className="text-orange-600" />;
       default: return <FaStar className="text-gray-400" />;
     }
   };

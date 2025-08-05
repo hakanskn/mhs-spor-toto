@@ -2,9 +2,9 @@
 
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
-import { FaEdit, FaCheck, FaTimes, FaLock, FaUnlock, FaEye } from 'react-icons/fa';
+import { FaCalendar, FaUsers, FaFutbol, FaClock, FaTrophy } from 'react-icons/fa';
 import { Week, Match } from '@/lib/supabase';
-import { weekService, matchService } from '@/lib/supabase-service';
+import { weekService, matchService, userScoreService } from '@/lib/supabase-service';
 
 type WeekWithMatches = Week & {
   matches?: Match[];

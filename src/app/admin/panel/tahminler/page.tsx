@@ -2,9 +2,9 @@
 
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
-import { FaEye, FaHome, FaCalendar, FaClock, FaCheck, FaTimes, FaUsers, FaFutbol, FaTrophy, FaStar, FaMedal } from 'react-icons/fa';
-import { Match, Week, User, Prediction } from '@/lib/supabase';
-import { weekService, matchService, userService, predictionService } from '@/lib/supabase-service';
+import { FaCalendar, FaUsers, FaFutbol, FaClock, FaTrophy, FaCheck, FaTimes, FaInfoCircle } from 'react-icons/fa';
+import { Match, Week, User } from '@/lib/supabase';
+import { weekService, matchService, userService, userScoreService, predictionService } from '@/lib/supabase-service';
 
 type UserPrediction = {
   user_id: string;
@@ -33,7 +33,7 @@ export default function PredictionsPage() {
     if (users.length > 0 && selectedWeek && matches.length > 0 && !loading) {
       loadUserPredictions(selectedWeek.id, matches, users);
     }
-  }, [selectedWeek]); // Sadece selectedWeek değiştiğinde çalışsın
+  }, [selectedWeek, users, matches, loading]); // Sadece selectedWeek değiştiğinde çalışsın
 
   const loadData = async () => {
     try {
@@ -198,10 +198,10 @@ export default function PredictionsPage() {
 
   const getRankIcon = (rank: number) => {
     switch (rank) {
-      case 1: return <FaMedal className="text-yellow-500" />;
-      case 2: return <FaMedal className="text-gray-400" />;
-      case 3: return <FaMedal className="text-orange-600" />;
-      default: return <FaStar className="text-gray-400" />;
+      case 1: return <FaTrophy className="text-yellow-500" />;
+      case 2: return <FaTrophy className="text-gray-400" />;
+      case 3: return <FaTrophy className="text-orange-600" />;
+      default: return <FaInfoCircle className="text-gray-400" />;
     }
   };
 
@@ -224,7 +224,7 @@ export default function PredictionsPage() {
           <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
             <div className="flex items-center gap-3">
               <div className="bg-indigo-100 dark:bg-indigo-900 p-3 rounded-full">
-                <FaEye className="text-indigo-600 dark:text-indigo-400 text-xl" />
+                <FaInfoCircle className="text-indigo-600 dark:text-indigo-400 text-xl" />
               </div>
               <div>
                 <h1 className="text-2xl font-bold text-gray-900 dark:text-white">Kullanıcı Tahminleri</h1>
@@ -236,7 +236,7 @@ export default function PredictionsPage() {
                 href="/admin/panel"
                 className="bg-gray-600 hover:bg-gray-700 text-white px-4 py-2 rounded-lg flex items-center gap-2 transition-colors"
               >
-                <FaHome />
+                <FaUsers />
                 <span className="hidden sm:inline">Admin Paneli</span>
                 <span className="sm:hidden">Panel</span>
               </Link>

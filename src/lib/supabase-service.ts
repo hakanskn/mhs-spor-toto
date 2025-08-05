@@ -142,7 +142,7 @@ export const weekService = {
 
   // Hafta durumunu güncelle
   async updateWeekStatus(weekId: string, status: Week['status']): Promise<boolean> {
-    const updateData: any = { status };
+    const updateData: { status: Week['status']; closed_at?: string } = { status };
     
     if (status === 'closed') {
       updateData.closed_at = new Date().toISOString();

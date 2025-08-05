@@ -4,8 +4,8 @@ import { useState, useEffect } from 'react';
 import { use } from 'react';
 import Link from 'next/link';
 import { FaTrophy, FaHome, FaCalendar, FaClock, FaCheck, FaTimes, FaEye, FaEyeSlash, FaUsers, FaFutbol, FaCheckCircle } from 'react-icons/fa';
-import { User, Week, Match } from '@/lib/supabase';
-import { userService, weekService, matchService, predictionService } from '@/lib/supabase-service';
+import { Match, Week, User } from '@/lib/supabase';
+import { matchService, weekService, userService, predictionService } from '@/lib/supabase-service';
 
 type ModalType = 'success' | 'error' | null;
 
@@ -72,7 +72,7 @@ export default function PredictionPage({ params }: { params: Promise<{ key: stri
         // Kullanıcının mevcut tahminlerini yükle
         const userPreds = await predictionService.getUserPredictions(userData.id, firstWeek.id);
         const predictionMap: {[key: string]: 1 | 0 | 2} = {};
-        userPreds.forEach((p: any) => {
+        userPreds.forEach((p: { match_id: string; predicted_result: 1 | 0 | 2 }) => {
           predictionMap[p.match_id] = p.predicted_result;
         });
         setPredictions(predictionMap);
@@ -103,7 +103,7 @@ export default function PredictionPage({ params }: { params: Promise<{ key: stri
       if (user) {
         const userPreds = await predictionService.getUserPredictions(user.id, selectedWeek.id);
         const predictionMap: {[key: string]: 1 | 0 | 2} = {};
-        userPreds.forEach((p: any) => {
+        userPreds.forEach((p: { match_id: string; predicted_result: 1 | 0 | 2 }) => {
           predictionMap[p.match_id] = p.predicted_result;
         });
         setPredictions(predictionMap);
